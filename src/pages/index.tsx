@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import Questionario from "@/components/Questionario";
 import QuestaoModel from "@/model/questao";
 import { useRouter } from "next/router";
+import getConfig from "next/config";
 
-const BASE_URL = "http://localhost:3000/api";
+
+const { publicRuntimeConfig } = getConfig();
+const nextPublicAppUrl = publicRuntimeConfig.nextPublicAppUrl;
+console.assert(nextPublicAppUrl, "nextPublicAppUrl não foi configurado.");
+const BASE_URL = `${nextPublicAppUrl}/api`;
+
 
 export default function Home() {
+   
     const router = useRouter();
-
     const [idsDasQuestoes, setIdsDasQuestoes] = useState<number[]>([]);
     //   const [questao, setQuestao] = useState<QuestaoModel>()
     const [questao, setQuestao] = useState<QuestaoModel>(
